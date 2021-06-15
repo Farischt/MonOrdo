@@ -6,7 +6,7 @@ export default async (req, res) => {
     const user = await Backend.getAuthenticatedUser({ req, res })
     if (!user) {
       res.statusCode = 401
-      return res.json({ error: "not authenticated" })
+      return res.json({ error: "not_authenticated" })
     }
     res.statusCode = 200
     res.json({
