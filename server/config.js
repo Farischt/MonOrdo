@@ -1,8 +1,8 @@
 export const DATABASE_CREDENTIALS = {
   dialect: "postgres",
-  host: "localhost",
-  username: "faris",
+  host: process.env.DB_HOST,
+  username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
-  database: "authentication",
+  database: process.env.DB_NAME,
   port: 8080,
 }
