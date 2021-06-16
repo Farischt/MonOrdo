@@ -1,5 +1,5 @@
 import axios from "axios"
-import { API_URL } from "./config.json"
+import API_URL from "./config.json"
 
 const END_POINT = "auth"
 
