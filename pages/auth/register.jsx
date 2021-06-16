@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { AuthApi } from "@/client/Auth"
 
-export default function Home({}) {
+export default function RegisterPage({}) {
   const [user, setUser] = useState({
     first_name: "",
     last_name: "",
