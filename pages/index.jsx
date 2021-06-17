@@ -1,19 +1,28 @@
-export default function HomePage() {
-  return <h1> Page d'accueil </h1>
+import Layout from "@/components/layout"
+
+export default function HomePage({ user }) {
+  return (
+    <Layout user={user}>
+      <h1> Page d'accueil </h1>
+    </Layout>
+  )
 }
 
-import Database from "@/server/database"
+import Backend from "@/server/index"
 
-export const getServerSideProps = (context) => {
-  const user = Database.User.findOne({
-    where: {
-      email: "test",
-    },
-  })
+export const getServerSideProps = async (context) => {
+  const user = await Backend.getAuthenticatedUser(context)
 
   return {
     props: {
-      success: true,
+      user: user && {
+        id: user.id,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        admin: user.admin,
+        verified: user.verified,
+      },
     },
   }
 }
