@@ -20,12 +20,10 @@ export default async (req, res) => {
     if (!user) {
       res.statusCode = 401
       return res.json({ error: "invalid_credentials" })
-    }
-    // else if (!user.verified) {
-    //   res.statusCode = 401
-    //   return res.json({ error: "invalid_credentials" })
-    // }
-    else if (!(await user.checkPassword(req.body.password))) {
+    } else if (!user.verified) {
+      res.statusCode = 401
+      return res.json({ error: "invalid_credentials" })
+    } else if (!(await user.checkPassword(req.body.password))) {
       res.statusCode = 401
       return res.json({ error: "invalid_credentials" })
     }
