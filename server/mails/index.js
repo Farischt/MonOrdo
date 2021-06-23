@@ -21,13 +21,13 @@ class EmailService {
       await this.transporter.sendMail({
         from: CREDENTIALS.APP_EMAIL,
         to: to,
-        subject: "Confirm your account !",
-        text: "Confirm your account !",
+        subject: "Confirmez votre adresse mail !",
+        text: "Confirmez votre adresse mail !",
         html: `<div> 
-                 <h1> Thanks for your registration ${name} &#129321; ! </h1>
-                 <p> In order to complete your registration, please click on this link <a href="${WEBSITE_URL}/auth/${encodeURIComponent(
+                 <h1> Merci pour votre inscription ${name} &#129321; ! </h1>
+                 <p> Afin de finaliser votre inscription, merci de cliquer sur ce <a href="${WEBSITE_URL}/auth/${encodeURIComponent(
           code
-        )}"> </a> </p>
+        )}"> lien </a> </p>
                </div> `,
       })
     } catch (error) {
@@ -35,3 +35,5 @@ class EmailService {
     }
   }
 }
+
+export default new EmailService()
