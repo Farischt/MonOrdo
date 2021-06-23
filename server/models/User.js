@@ -9,7 +9,7 @@ class User extends Model {
   }
 
   static async emailTaken(email) {
-    return email && (await this.get(email)) ? true : false
+    return email && (await User.findOne({ where: { email } })) ? true : false
   }
 
   async checkPassword(password) {
