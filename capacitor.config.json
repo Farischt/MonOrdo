@@ -1,0 +1,6 @@
+{
+  "appId": "com.monordocap.app",
+  "appName": "monordoCap",
+  "webDir": "out",
+  "bundledWebRuntime": false
+}

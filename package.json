@@ -8,6 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@capacitor/android": "^3.0.1",
+    "@capacitor/cli": "^3.0.1",
+    "@capacitor/core": "^3.0.1",
+    "@capacitor/ios": "^3.0.1",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "cookie": "^0.4.1",

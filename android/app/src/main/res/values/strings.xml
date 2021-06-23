@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">monordoCap</string>
+    <string name="title_activity_main">monordoCap</string>
+    <string name="package_name">com.monordocap.app</string>
+    <string name="custom_url_scheme">com.monordocap.app</string>
+</resources>
