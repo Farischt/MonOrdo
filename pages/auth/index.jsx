@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 
 import Layout from "@/components/layout"
@@ -11,8 +11,18 @@ export default function LoginPage() {
     email: "",
     password: "",
   })
+  const [remember, setRemember] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+
+  useEffect(() => {
+    if (window && window.localStorage.getItem("remember")) {
+      setUserCredentials((previousState) => ({
+        ...previousState,
+        email: window.localStorage.getItem("remember"),
+      }))
+    }
+  }, [])
 
   const handleChange = (event) => {
     if (error) setError("")
@@ -23,28 +33,40 @@ export default function LoginPage() {
     }))
   }
 
+  const handleRememberChange = () => {
+    setRemember((previousState) => !previousState)
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     setLoading(true)
 
     try {
       await AuthApi.login(userCredentials)
+      if (window && remember) {
+        if (window.localStorage.getItem("remember")) {
+          window.localStorage.removeItem("remember")
+        }
+        window.localStorage.setItem("remember", userCredentials.email)
+      }
       setLoading(false)
       router.push("/")
     } catch (error) {
       setLoading(false)
       switch (error.response.data.error) {
         case "missing_email":
-          setError("Your email is missing !")
+          setError("Veuillez remplir le champ email !")
           break
         case "missing_password":
-          setError("Your password is missing !")
+          setError("Veuillez remplir le champ mot de passe !")
           break
         case "invalid_credentials":
-          setError("Invalid credentials !")
+          setError("Identifiants incorrects !")
           break
         default:
-          setError("An unknow error occured !")
+          setError(
+            "Erreur inconnue ! Si le problème persiste, veuillez contacter notre support."
+          )
       }
     }
   }
@@ -52,7 +74,7 @@ export default function LoginPage() {
   return (
     <Layout>
       <form method="POST" onSubmit={handleSubmit}>
-        <h1> Login </h1>
+        <h1> Connexion </h1>
         <input
           type="email"
           name="email"
@@ -63,13 +85,20 @@ export default function LoginPage() {
         <input
           type="password"
           name="password"
-          placeholder="Password"
+          placeholder="Mot de passe"
           value={userCredentials.password}
           onChange={handleChange}
         />
-        <button type="submit"> Submit </button>
+        <input
+          type="checkbox"
+          id="rememberMe"
+          checked={remember}
+          onChange={handleRememberChange}
+        />
+        <label htmlFor="rememberMe"> Se souvenir de moi </label>
+        <button type="submit"> Se connecter </button>
         {error && <p> {error} </p>}
-        {loading && <p> Loading... </p>}
+        {loading && <p> Chargement... </p>}
       </form>
     </Layout>
   )
