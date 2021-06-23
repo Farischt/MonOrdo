@@ -1,4 +1,5 @@
 import Database from "@/server/database"
+import EmailService from "@/server/mails/index"
 
 export default async (req, res) => {
   if (req.method === "POST") {
@@ -58,9 +59,15 @@ export default async (req, res) => {
     await user.setPassword(password)
     await user.save()
 
-    await Database.AccountConfirmationToken.create({
+    const token = await Database.AccountConfirmationToken.create({
       user_id: user.id,
     })
+
+    await EmailService.sendAccountConfirmationMail(
+      user.email,
+      user.first_name,
+      token.token
+    )
 
     res.statusCode = 200
     res.json({ success: true })
