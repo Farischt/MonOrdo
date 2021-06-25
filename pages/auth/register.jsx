@@ -8,6 +8,7 @@ export default function RegisterPage({}) {
     first_name: "",
     last_name: "",
     email: "",
+    phone: "",
     password: "",
     repeatPassword: "",
   })
@@ -42,6 +43,9 @@ export default function RegisterPage({}) {
           break
         case "missing_repeat_password":
           setError("Your repeated password is missing !")
+          break
+        case "missing_phone":
+          setError("Your phone number is missing !")
           break
         case "passwords_are_not_the_same":
           setError("Your passwords are not the same !")
@@ -101,6 +105,15 @@ export default function RegisterPage({}) {
           placeholder="Email"
           value={user.email}
           onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="phone"
+          placeholder="Phone number"
+          value={user.phone}
+          onChange={handleChange}
+          minLength="10"
+          maxLength="10"
         />
         <input
           type="password"
