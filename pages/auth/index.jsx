@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
+import Link from "next/link"
 
 import Layout from "@/components/layout"
 import AuthApi from "@/client/Auth"
@@ -96,6 +97,9 @@ export default function LoginPage() {
           onChange={handleRememberChange}
         />
         <label htmlFor="rememberMe"> Se souvenir de moi </label>
+        <Link href="/auth/password">
+          <a> Mot de passe oublié ? </a>
+        </Link>
         <button type="submit"> Se connecter </button>
         {error && <p> {error} </p>}
         {loading && <p> Chargement... </p>}
