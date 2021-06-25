@@ -31,7 +31,27 @@ class EmailService {
                </div> `,
       })
     } catch (error) {
-      console.log(error)
+      console.log("Account confirmation email not sent !")
+    }
+  }
+
+  async sendPasswordResetRequest(to, token) {
+    try {
+      await this.transporter.sendMail({
+        from: CREDENTIALS.APP_EMAIL,
+        to,
+        subject: "Demande de réinitialisation de votre mot de passe !",
+        text: "Demande de réinitialisation de votre mot de passe !",
+        html: `<div> 
+                  <h1> Une demande de réinitialisation de votre mot de passe a été faite. </h1> 
+                  <p> Afin de créer un nouveau mot de passe, merci de cliquer sur ce <a href="${WEBSITE_URL}/auth/password/${encodeURIComponent(
+          token
+        )}"> lien </a></p>
+               </div>
+        `,
+      })
+    } catch (error) {
+      console.log("Password reset request email not sent !")
     }
   }
 }
