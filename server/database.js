@@ -21,6 +21,7 @@ const sync = false
   if (sync) {
     console.log("Syncronizing all models")
     await sequelize.sync({ force: true })
+    console.log("All models syncronized")
   }
 })()
 
