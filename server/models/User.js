@@ -51,6 +51,11 @@ export default (sequelize) =>
         allowNull: true,
       },
 
+      phone_number: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+
       admin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
