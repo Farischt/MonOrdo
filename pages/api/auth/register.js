@@ -15,6 +15,9 @@ export default async (req, res) => {
     } else if (typeof req.body.password !== "string") {
       res.statusCode = 400
       return res.json({ error: "missing_password" })
+    } else if (typeof req.body.phone !== "string") {
+      res.statusCode = 400
+      return res.json({ error: "missing_phone" })
     } else if (typeof req.body.repeatPassword !== "string") {
       res.statusCode = 400
       return res.json({ error: "missing_repeat_password" })
@@ -47,14 +50,13 @@ export default async (req, res) => {
       return res.json({ error: "password_special_weakness" })
     }
 
-    const { email, first_name, last_name, password } = req.body
+    const { email, first_name, last_name, password, phone } = req.body
     const user = await Database.User.build({
       first_name,
       last_name,
       email,
+      phone_number: phone,
     })
-
-    //TODO : EmailService to send a verification
 
     await user.setPassword(password)
     await user.save()
