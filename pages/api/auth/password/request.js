@@ -46,6 +46,7 @@ export default async (req, res) => {
 
     await EmailService.sendPasswordResetRequest(user.email, newToken.token)
 
+    res.statusCode = 200
     res.json({ succes: true })
   } else {
     res.statusCode = 405
