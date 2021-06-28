@@ -14,6 +14,12 @@ class EmailService {
         pass: CREDENTIALS.APP_PASSWORD,
       },
     })
+    this.dateOptions = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
+    }
   }
 
   async sendAccountConfirmationMail(to, name, code) {
@@ -35,6 +41,8 @@ class EmailService {
     }
   }
 
+  //! PASSWORD
+
   async sendPasswordResetRequest(to, token) {
     try {
       await this.transporter.sendMail({
@@ -52,6 +60,20 @@ class EmailService {
       })
     } catch (error) {
       console.log("Password reset request email not sent !")
+    }
+  }
+
+  async sendPasswordResetConfirmation(to, first_name, date) {
+    try {
+      await this.transporter.sendMail({
+        from: CREDENTIALS.APP_EMAIL,
+        to,
+        subject: "Alerte de sécurité !",
+        text: "Alerte de sécurité !",
+        html: `<div> <h1> Votre mot de passe a été modifié ! </h1> <p> Bonjour ${first_name}, votre mot de passe a été modifié le : ${date.toUTCString()} ! </p>  </div>`,
+      })
+    } catch (error) {
+      console.log("Password reset confirmation email not sent ! ")
     }
   }
 }
