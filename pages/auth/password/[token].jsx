@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
+
 import Layout from "@/components/layout"
 import AuthApi from "@/client/Auth"
 
-import { useEffect, useState } from "react"
-
 export default function PasswordResetConfirmationPage({ token }) {
+  const router = useRouter()
   const [data, setData] = useState({
     resetToken: "",
     newPassword: "",
@@ -15,6 +17,7 @@ export default function PasswordResetConfirmationPage({ token }) {
   useEffect(() => {
     if (token.id) {
       setData((state) => ({ ...state, resetToken: token.id }))
+      router.prefetch("/auth")
     }
   }, [])
 
@@ -29,8 +32,36 @@ export default function PasswordResetConfirmationPage({ token }) {
     try {
       await AuthApi.passwordResetConfirm(data)
       setLoading(false)
+      router.push("/auth")
     } catch (error) {
       switch (error.response.data.error) {
+        case "passwords_are_not_the_same":
+          setError("Les mots de passes ne sont pas identiques !")
+          break
+        case "password_too_short":
+          setError("Votre mot de passe doit contenir au moins 6 caractères !")
+          break
+        case "password_lowercase_weakness":
+          setError("Votre mot de passe doit contenir au moins une minuscule !")
+          break
+        case "password_uppercase_weakness":
+          setError("Votre mot de passe doit contenir au moins une majuscule !")
+          break
+        case "password_number_weakness":
+          setError("Votre mot de passe doit contenir au moins un chiffre")
+          break
+        case "password_special_weakness":
+          setError(
+            "Votre mot de passe doit contenir au moins un caractère spécial !"
+          )
+          break
+        case "expired_token":
+          setError(
+            "Session expirée, veuillez faire une nouvelle demande de mot de passe !"
+          )
+          break
+        default:
+          setError("Une erreur inconnue est survenu !")
       }
       setLoading(false)
     }
@@ -46,6 +77,7 @@ export default function PasswordResetConfirmationPage({ token }) {
           placeholder="Nouveau mot de passe..."
           onChange={handleChange}
           value={data.newPassword}
+          required
         />
         <input
           type="password"
@@ -53,6 +85,7 @@ export default function PasswordResetConfirmationPage({ token }) {
           placeholder="Repeter votre nouveau mot de passe..."
           onChange={handleChange}
           value={data.repeatPassword}
+          required
         />
         {loading && <p> Chargement... </p>}
         {error && <p> {error} </p>}
