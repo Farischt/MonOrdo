@@ -23,7 +23,7 @@ export default function PasswordResetRequest({ user }) {
     try {
       await AuthApi.passwordResetRequest(email)
       setLoading(false)
-      router.push("/auth")
+      router.push("/")
     } catch (error) {
       setLoading(false)
       switch (error.response.data.error) {

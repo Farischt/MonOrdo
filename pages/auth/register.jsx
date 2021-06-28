@@ -82,7 +82,7 @@ export default function RegisterPage({}) {
   }
 
   return (
-    <Layout>
+    <Layout user={null}>
       <form method="POST" onSubmit={handleSubmit}>
         <h1> Sign up </h1>
         <input

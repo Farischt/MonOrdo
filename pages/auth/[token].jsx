@@ -2,7 +2,7 @@ import Layout from "@/components/layout/index"
 
 export default function AccountConfirmationPage({ email, first_name }) {
   return (
-    <Layout>
+    <Layout user={null}>
       <h1> {first_name}, votre compte est maintenant validé ! </h1>
       <p>
         Votre adresse mail {email} est valide ! Vous pouvez dès à présent

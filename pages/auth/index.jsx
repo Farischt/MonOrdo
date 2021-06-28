@@ -73,7 +73,7 @@ export default function LoginPage() {
   }
 
   return (
-    <Layout>
+    <Layout user={null}>
       <form method="POST" onSubmit={handleSubmit}>
         <h1> Connexion </h1>
         <input
