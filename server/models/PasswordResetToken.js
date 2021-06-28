@@ -3,7 +3,7 @@ import Database from "@/server/database"
 
 class PasswordResetToken extends Model {
   async getUser() {
-    return await Database.User.findOne({ where: { id: this.id } })
+    return await Database.User.findOne({ where: { id: this.user_id } })
   }
 }
 
