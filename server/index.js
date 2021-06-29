@@ -1,7 +1,20 @@
-import cookie from "cookie"
 import Database from "@/server/database"
+import cookie from "cookie"
+import formidable from "formidable"
 
 class Backend {
+  async parseMultipart(context) {
+    return await new Promise((resolve, reject) => {
+      formidable().parse(context.req, (error, body, files) => {
+        if (error) return reject(error)
+
+        context.req.body = body
+        context.req.files = files
+        return resolve({ body, files })
+      })
+    })
+  }
+
   async login(context, token) {
     context.res.setHeader(
       "Set-Cookie",
