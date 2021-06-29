@@ -56,6 +56,20 @@ export default (sequelize) =>
         allowNull: false,
       },
 
+      birth_date: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+      },
+
+      social_security: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          len: [13, 13],
+        },
+      },
+
       admin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
