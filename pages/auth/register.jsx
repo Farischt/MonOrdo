@@ -9,6 +9,8 @@ export default function RegisterPage({}) {
     last_name: "",
     email: "",
     phone: "",
+    birth_date: "",
+    social_security: "",
     password: "",
     repeatPassword: "",
   })
@@ -17,8 +19,10 @@ export default function RegisterPage({}) {
 
   const handleChange = (event) => {
     if (error) setError("")
-
-    setUser((state) => ({ ...state, [event.target.name]: event.target.value }))
+    setUser((state) => ({
+      ...state,
+      [event.target.name]: event.target.value,
+    }))
   }
 
   const handleSubmit = async (event) => {
@@ -37,6 +41,15 @@ export default function RegisterPage({}) {
           break
         case "missing_last_name":
           setError("Your last-name is missing !")
+          break
+        case "missing_birth_date":
+          setError("Your birth date is missing !")
+          break
+        case "missing_social_security":
+          setError("Your social security code is missing !")
+          break
+        case "invalid_social_security":
+          setError("Invalid social security code !")
           break
         case "missing_password":
           setError("Your password is missing !")
@@ -107,6 +120,13 @@ export default function RegisterPage({}) {
           onChange={handleChange}
         />
         <input
+          type="date"
+          name="birth_date"
+          placeholder="Date de naissance"
+          value={user.birth_date}
+          onChange={handleChange}
+        />
+        <input
           type="text"
           name="phone"
           placeholder="Phone number"
@@ -114,6 +134,15 @@ export default function RegisterPage({}) {
           onChange={handleChange}
           minLength="10"
           maxLength="10"
+        />
+        <input
+          type="text"
+          name="social_security"
+          placeholder="Social security code"
+          value={user.social_security}
+          onChange={handleChange}
+          minLength="13"
+          maxLength="13"
         />
         <input
           type="password"

@@ -12,12 +12,24 @@ export default async (req, res) => {
     } else if (typeof req.body.last_name !== "string") {
       res.statusCode = 400
       return res.json({ error: "missing_last_name" })
-    } else if (typeof req.body.password !== "string") {
+    } else if (typeof req.body.birth_date !== "string") {
       res.statusCode = 400
-      return res.json({ error: "missing_password" })
+      return res.json({ error: "missing_birth_date" })
     } else if (typeof req.body.phone !== "string") {
       res.statusCode = 400
       return res.json({ error: "missing_phone" })
+    } else if (req.body.phone.length !== 10) {
+      res.statusCode = 400
+      return res.json({ error: "invalid_phone_number" })
+    } else if (typeof req.body.social_security !== "string") {
+      res.statusCode = 400
+      return res.json({ error: "missing_social_security" })
+    } else if (typeof req.body.password !== "string") {
+      res.statusCode = 400
+      return res.json({ error: "missing_password" })
+    } else if (req.body.social_security.length !== 13) {
+      res.statusCode = 400
+      return res.json({ error: "invalid_social_security" })
     } else if (typeof req.body.repeatPassword !== "string") {
       res.statusCode = 400
       return res.json({ error: "missing_repeat_password" })
@@ -50,11 +62,21 @@ export default async (req, res) => {
       return res.json({ error: "password_special_weakness" })
     }
 
-    const { email, first_name, last_name, password, phone } = req.body
+    const {
+      email,
+      first_name,
+      last_name,
+      password,
+      phone,
+      birth_date,
+      social_security,
+    } = req.body
     const user = await Database.User.build({
       first_name,
       last_name,
       email,
+      birth_date,
+      social_security,
       phone_number: phone,
     })
 
