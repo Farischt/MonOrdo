@@ -26,9 +26,15 @@ export default function Footer({ user }) {
               <a> Home </a>
             </Link>
           </li>
+          {user && user.admin && (
+            <li>
+              <Link href="/admin">
+                <a> Admin </a>
+              </Link>
+            </li>
+          )}
           {!user && (
             <>
-              {" "}
               <li>
                 <Link href="/auth/">
                   <a> Sign in </a>
@@ -38,7 +44,7 @@ export default function Footer({ user }) {
                 <Link href="/auth/register">
                   <a> Sign Up </a>
                 </Link>
-              </li>{" "}
+              </li>
             </>
           )}
           {user && <button onClick={handleLogout}> Log out </button>}
