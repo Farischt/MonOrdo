@@ -6,6 +6,8 @@ class AuthApi {
     this.END_POINT = "auth"
   }
 
+  //! USER AUTHENTICATION
+
   async register(userInformations) {
     return await axios.post(
       `${API_URL}/${this.END_POINT}/register`,
@@ -28,7 +30,7 @@ class AuthApi {
     return await axios.post(`${API_URL}/${this.END_POINT}/logout`)
   }
 
-  //! PASSWORD
+  //! USER PASSWORD
 
   async passwordResetRequest(email) {
     return await axios.post(`${API_URL}/${this.END_POINT}/password/request`, {
