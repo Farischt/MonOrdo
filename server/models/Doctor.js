@@ -1,4 +1,4 @@
-import { DataTypes, Model } from "sequelize"
+import { Sequelize, DataTypes, Model } from "sequelize"
 import bcryptjs from "bcryptjs"
 
 const SALT_ROUND = 10
@@ -10,6 +10,10 @@ class Doctor extends Model {
 
   static async emailTaken(email) {
     return email && (await Doctor.findOne({ where: { email } })) ? true : false
+  }
+
+  static async rppsTaken(rpps) {
+    return rpps && (await Doctor.findOne({ where: { rpps } })) ? true : false
   }
 
   async checkPassword(password) {
@@ -27,7 +31,7 @@ class Doctor extends Model {
   }
 }
 
-export default (sequelize) =>
+export default (sequelize, Asset) =>
   Doctor.init(
     {
       email: {
@@ -61,15 +65,6 @@ export default (sequelize) =>
         allowNull: false,
       },
 
-      //   social_security: {
-      //     type: DataTypes.STRING,
-      //     allowNull: false,
-      //     unique: true,
-      //     validate: {
-      //       len: [13, 13],
-      //     },
-      //   },
-
       verified: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
@@ -82,6 +77,28 @@ export default (sequelize) =>
         unique: true,
         validate: {
           len: [11, 11],
+        },
+      },
+
+      identity_card: {
+        type: Sequelize.UUID,
+        allowNull: true,
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
+        references: {
+          model: Asset,
+          key: "id",
+        },
+      },
+
+      doctor_card: {
+        type: Sequelize.UUID,
+        allowNull: true,
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
+        references: {
+          model: Asset,
+          key: "id",
         },
       },
     },
