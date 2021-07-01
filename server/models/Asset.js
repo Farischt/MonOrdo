@@ -24,6 +24,11 @@ export default (sequelize) =>
         type: DataTypes.BLOB,
         allowNull: false,
       },
+      private: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      }
     },
     {
       sequelize,
