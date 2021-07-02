@@ -21,10 +21,11 @@ export const getServerSideProps = async (context) => {
         last_name: user.last_name,
         email: user.email,
         phone_number: user.phone_number,
-        social_security: user.social_security,
+        social_security: user.social_security || null,
         birth_date: user.birth_date,
-        admin: user.admin,
+        admin: user.admin || null,
         verified: user.verified,
+        rpps: user.rpps || null,
       },
     },
   }
