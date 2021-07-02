@@ -26,6 +26,13 @@ export default function Footer({ user }) {
               <a> Home </a>
             </Link>
           </li>
+          {user && user.rpps && (
+            <li>
+              <Link href="/doctor">
+                <a> Espace médecin </a>
+              </Link>
+            </li>
+          )}
           {user && user.admin && (
             <li>
               <Link href="/admin">
@@ -43,6 +50,11 @@ export default function Footer({ user }) {
               <li>
                 <Link href="/auth/register">
                   <a> Sign Up </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/auth/doctor">
+                  <a> Espace médecin </a>
                 </Link>
               </li>
             </>
