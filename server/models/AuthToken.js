@@ -2,7 +2,7 @@ import { Sequelize, DataTypes, Model } from "sequelize"
 
 class AuthToken extends Model {}
 
-export default (sequelize, User) =>
+export default (sequelize, User, Doctor) =>
   AuthToken.init(
     {
       token: {
@@ -14,11 +14,22 @@ export default (sequelize, User) =>
 
       user_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
         references: {
           model: User,
+          key: "id",
+        },
+      },
+
+      doctor_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+        references: {
+          model: Doctor,
           key: "id",
         },
       },
