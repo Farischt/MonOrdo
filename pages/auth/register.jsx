@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Link from "next/link"
 
 import Layout from "@/components/layout"
 import AuthApi from "@/client/Auth"
@@ -161,6 +162,9 @@ export default function RegisterPage({}) {
         <button type="submit"> Send </button>
         {error && <p> {error} </p>}
         {loading && <p> Loading... </p>}
+        <Link href="/auth/doctor/register">
+          <a> Vous êtes médecin ? </a>
+        </Link>
       </form>
     </Layout>
   )
