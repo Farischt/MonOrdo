@@ -106,12 +106,14 @@ export default async (req, res) => {
       file_name: req.files.identity_card.name,
       mime_type: req.files.identity_card.type,
       content: await fs.readFile(req.files.identity_card.path),
+      private: true,
     })
 
     const doctor_card = await Database.Asset.create({
       file_name: req.files.doctor_card.name,
       mime_type: req.files.doctor_card.type,
       content: await fs.readFile(req.files.doctor_card.path),
+      private: true,
     })
 
     doctor.identity_card = identity_card.id
@@ -123,7 +125,6 @@ export default async (req, res) => {
       doctor.first_name
     )
     await EmailService.sendAdminDoctorRegistration(
-      doctor.email,
       doctor.first_name,
       doctor.last_name,
       doctor.rpps
@@ -131,8 +132,6 @@ export default async (req, res) => {
 
     res.statusCode = 200
     res.json({ succes: true })
-
-    //! EMAIL SERVICE to doctor + admins
   } else {
     res.statusCode = 405
     res.json({ error: "method_not_allowed" })
