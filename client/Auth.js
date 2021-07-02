@@ -3,44 +3,44 @@ import { API_URL } from "./config.json"
 
 class AuthApi {
   constructor() {
-    this.END_POINT = "auth"
+    this.AUTH_URI = "auth"
   }
 
   //! USER AUTHENTICATION
 
   async register(userInformations) {
     return await axios.post(
-      `${API_URL}/${this.END_POINT}/register`,
+      `${API_URL}/${this.AUTH_URI}/register`,
       userInformations
     )
   }
 
   async login(userCredentials) {
     return await axios.post(
-      `${API_URL}/${this.END_POINT}/login`,
+      `${API_URL}/${this.AUTH_URI}/login`,
       userCredentials
     )
   }
 
   async getAuthenticatedUser() {
-    return await axios.get(`${API_URL}/${this.END_POINT}/me`)
+    return await axios.get(`${API_URL}/${this.AUTH_URI}/me`)
   }
 
   async logout() {
-    return await axios.post(`${API_URL}/${this.END_POINT}/logout`)
+    return await axios.post(`${API_URL}/${this.AUTH_URI}/logout`)
   }
 
   //! USER PASSWORD
 
   async passwordResetRequest(email) {
-    return await axios.post(`${API_URL}/${this.END_POINT}/password/request`, {
+    return await axios.post(`${API_URL}/${this.AUTH_URI}/password/request`, {
       email,
     })
   }
 
   async passwordResetConfirm(credentials) {
     return await axios.patch(
-      `${API_URL}/${this.END_POINT}/password/confirm`,
+      `${API_URL}/${this.AUTH_URI}/password/confirm`,
       credentials
     )
   }

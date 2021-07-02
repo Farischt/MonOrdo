@@ -3,15 +3,15 @@ import { API_URL } from "./config.json"
 
 class DoctorApi {
   constructor() {
-    this.AUTH_END_POINT = "auth"
-    this.DOCTOR_END_POINT = "doctor"
+    this.AUTH_URI = "auth"
+    this.DOCTOR_URI = "doctor"
   }
 
   //! AUTHENTICATION
 
   async login(credentials) {
     return await axios.post(
-      `${API_URL}/${this.AUTH_END_POINT}/${this.DOCTOR_END_POINT}/login`,
+      `${API_URL}/${this.AUTH_URI}/${this.DOCTOR_URI}/login`,
       credentials
     )
   }
@@ -30,7 +30,7 @@ class DoctorApi {
     if (doctor.identity_card) data.append("identity_card", doctor.identity_card)
     if (doctor.doctor_card) data.append("doctor_card", doctor.doctor_card)
     return await axios.post(
-      `${API_URL}/${this.AUTH_END_POINT}/${this.DOCTOR_END_POINT}/register`,
+      `${API_URL}/${this.AUTH_URI}/${this.DOCTOR_URI}/register`,
       data
     )
   }
