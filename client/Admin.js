@@ -3,16 +3,30 @@ import { API_URL } from "./config.json"
 
 class AdminApi {
   constructor() {
-    this.AUTH_END_POINT = "auth"
-    this.ADMIN_END_POINT = "admin"
+    this.AUTH_URI = "auth"
+    this.ADMIN_URI = "admin"
+    this.DOCTOR_URI = "doctor"
   }
 
   //! AUTHENTICATION
 
   async login(credentials) {
-    return await axios.post(
-      `${API_URL}/${this.AUTH_END_POINT}/${this.ADMIN_END_POINT}/login`,
-      credentials
+    return (
+      credentials &&
+      (await axios.post(
+        `${API_URL}/${this.AUTH_URI}/${this.ADMIN_URI}/login`,
+        credentials
+      ))
+    )
+  }
+
+  //! DOCTORS VERIFICATION
+  async verifyDoctor(doctorId) {
+    return (
+      doctorId &&
+      (await axios.patch(
+        `${API_URL}/${this.ADMIN_URI}/${this.DOCTOR_URI}/${doctorId}`
+      ))
     )
   }
 
