@@ -66,9 +66,16 @@ class Backend {
       return null
     }
 
-    const user = await Database.User.findByPk(token.user_id)
+    const user = token.user_id
+      ? await Database.User.findByPk(token.user_id)
+      : await Database.Doctor.findByPk(token.doctor_id)
     if (!user) return null
     return user
+  }
+
+  async isAuthenticatedUserAdmin(context) {
+    const user = await this.getAuthenticatedUser(context)
+    return user !== null ? user.admin : false
   }
 
   hasAuthTokenExpired(token) {
