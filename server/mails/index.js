@@ -112,11 +112,11 @@ class EmailService {
     }
   }
 
-  async sendAdminDoctorRegistration(to, first_name, last_name, rpps) {
+  async sendAdminDoctorRegistration(first_name, last_name, rpps) {
     try {
       await this.transporter.sendMail({
         from: CREDENTIALS.APP_EMAIL,
-        to,
+        to: CREDENTIALS.APP_EMAIL,
         subject: "Un nouveau médecin en attente de vérification !",
         text: "Un nouveau médecin en attente de vérification !",
         html: `<div> <h1> Et un de plus ! </h1> 
