@@ -103,6 +103,9 @@ export default function LoginPage() {
         <button type="submit"> Se connecter </button>
         {error && <p> {error} </p>}
         {loading && <p> Chargement... </p>}
+        <Link href="/auth/doctor">
+          <a> Vous êtes médecin ? </a>
+        </Link>
       </form>
     </Layout>
   )
