@@ -30,6 +30,14 @@ class AdminApi {
     )
   }
 
+  async getUnverifiedDoctors(page) {
+    return page
+      ? await axios.get(
+          `${API_URL}/${this.ADMIN_URI}/${this.DOCTOR_URI}?page=${page}`
+        )
+      : await axios.get(`${API_URL}/${this.ADMIN_URI}/${this.DOCTOR_URI}`)
+  }
+
   //! PASSWORD
 
   //! CREATE ADMIN

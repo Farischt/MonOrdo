@@ -5,8 +5,10 @@ import Layout from "@/components/layout"
 import AssetApi from "@/client/Asset"
 import AdminApi from "@/client/Admin"
 
-export default function AdminIndexPage({ user, doctors }) {
-  const router = useRouter()
+export default function AdminIndexPage({ user, doctors, doctorsRecord }) {
+  let router = useRouter()
+  let perPage = process.env.PER_PAGE
+  let numberOfPages = Math.ceil(doctorsRecord / perPage)
 
   const [loading, setLoading] = useState(false)
 
@@ -21,6 +23,8 @@ export default function AdminIndexPage({ user, doctors }) {
       setLoading(false)
     }
   }
+
+  const handleFetchNextDoctors = async (page) => {}
 
   return (
     <Layout user={user}>
@@ -77,7 +81,7 @@ export const getServerSideProps = async (context) => {
     }
   }
 
-  const doctors = await Database.Doctor.findAll({
+  const { rows, count } = await Database.Doctor.findAndCountAll({
     where: {
       verified: false,
     },
@@ -101,8 +105,8 @@ export const getServerSideProps = async (context) => {
       },
 
       doctors:
-        doctors &&
-        doctors.map((doctor) => ({
+        rows &&
+        rows.map((doctor) => ({
           id: doctor.id,
           first_name: doctor.first_name,
           last_name: doctor.last_name,
@@ -113,6 +117,8 @@ export const getServerSideProps = async (context) => {
           identity_card_id: doctor.identity_card,
           created_at: doctor.createdAt.toLocaleDateString("en-GB", dateOptions),
         })),
+
+      doctorsRecord: rows && count,
     },
   }
 }
