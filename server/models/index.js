@@ -4,6 +4,7 @@ import AccountConfirmationTokenModel from "./AccountConfirmationToken"
 import PasswordResetTokenModel from "./PasswordResetToken"
 import AssetModel from "./Asset"
 import DoctorModel from "./Doctor"
+import PrescriptionModel from "./Prescription"
 
 export default (sequelize) => {
   const User = UserModel(sequelize)
@@ -15,6 +16,7 @@ export default (sequelize) => {
   const Asset = AssetModel(sequelize)
   const Doctor = DoctorModel(sequelize, Asset)
   const AuthToken = AuthTokenModel(sequelize, User, Doctor)
+  const Prescription = PrescriptionModel(sequelize, Doctor, User)
 
   return {
     User,
@@ -23,5 +25,6 @@ export default (sequelize) => {
     PasswordResetToken,
     Asset,
     Doctor,
+    Prescription,
   }
 }
