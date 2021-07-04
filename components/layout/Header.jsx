@@ -26,7 +26,7 @@ export default function Footer({ user }) {
               <a> Home </a>
             </Link>
           </li>
-          {user && user.rpps && (
+          {user && user.rpps && !user.pharmacist && (
             <li>
               <Link href="/doctor">
                 <a> Espace médecin </a>
@@ -40,6 +40,14 @@ export default function Footer({ user }) {
               </Link>
             </li>
           )}
+          {user && user.pharmacist && (
+            <li>
+              <Link href="/pharmacist">
+                <a> Espace pharmacien </a>
+              </Link>
+            </li>
+          )}
+
           {!user && (
             <>
               <li>
@@ -54,7 +62,7 @@ export default function Footer({ user }) {
               </li>
               <li>
                 <Link href="/auth/doctor">
-                  <a> Espace médecin </a>
+                  <a> Connexion médecin </a>
                 </Link>
               </li>
             </>

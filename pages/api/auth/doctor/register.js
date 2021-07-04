@@ -9,6 +9,8 @@ export const config = {
   },
 }
 
+//! Case pharmacist to handle
+
 export default async (req, res) => {
   if (req.method === "POST") {
     await Backend.parseMultipart({ req, res })
@@ -52,6 +54,9 @@ export default async (req, res) => {
     } else if (!req.files.doctor_card) {
       res.statusCode = 400
       return res.json({ error: "missing_doctor_card" })
+    } else if (typeof JSON.parse(req.body.pharmacist) !== "boolean") {
+      res.statusCode = 400
+      return res.json({ error: "missing_pharmacist" })
     }
 
     //? Password strength
@@ -83,6 +88,8 @@ export default async (req, res) => {
       rpps,
     } = req.body
 
+    const pharmacist = JSON.parse(req.body.pharmacist)
+
     if (await Database.Doctor.emailTaken(email)) {
       res.statusCode = 400
       return res.json({ error: "email_taken" })
@@ -98,6 +105,7 @@ export default async (req, res) => {
       birth_date,
       phone_number,
       rpps,
+      pharmacist,
     })
 
     await doctor.setPassword(password)

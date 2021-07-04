@@ -17,6 +17,7 @@ export default function RegisterPage({}) {
     rpps: "",
     password: "",
     repeatPassword: "",
+    pharmacist: false,
     identity_card: null,
     doctor_card: null,
   })
@@ -34,6 +35,8 @@ export default function RegisterPage({}) {
         ...state,
         [event.target.name]: event.target.files.length && event.target.files[0],
       }))
+    } else if (event.target.name === "pharmacist") {
+      setDoctor((state) => ({ ...state, pharmacist: !state.pharmacist }))
     } else {
       setDoctor((state) => ({
         ...state,
@@ -169,6 +172,7 @@ export default function RegisterPage({}) {
           onChange={handleChange}
           required
         />
+        <label htmlFor="identity_card"> Carte d'identité </label>
         <input
           type="file"
           id="identity_card"
@@ -176,7 +180,7 @@ export default function RegisterPage({}) {
           onChange={handleChange}
           required
         />
-        <label htmlFor="identity_card"> Carte d'identité </label>
+        <label htmlFor="doctor_card"> Carte de médecin </label>
         <input
           type="file"
           id="doctor_card"
@@ -184,7 +188,15 @@ export default function RegisterPage({}) {
           onChange={handleChange}
           required
         />
-        <label htmlFor="doctor_card"> Carte de médecin </label>
+        <label htmlFor="pharmacist"> Êtes vous un pharmacien ?</label>
+        <input
+          type="checkbox"
+          id="pharmacist"
+          name="pharmacist"
+          value={doctor.pharmacist}
+          onChange={handleChange}
+          required
+        />
         {doctor && doctor.doctor_card && (
           <img
             src={URL.createObjectURL(doctor.doctor_card)}

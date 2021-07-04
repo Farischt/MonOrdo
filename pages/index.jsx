@@ -26,6 +26,7 @@ export const getServerSideProps = async (context) => {
         admin: user.admin || null,
         verified: user.verified,
         rpps: user.rpps || null,
+        pharmacist: user.pharmacist || null,
       },
     },
   }

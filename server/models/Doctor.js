@@ -65,6 +65,12 @@ export default (sequelize, Asset) =>
         allowNull: false,
       },
 
+      pharmacist: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+
       verified: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

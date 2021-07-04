@@ -42,6 +42,7 @@ export default async (req, res) => {
       last_name: doctor.last_name,
       verified: doctor.verified,
       rpps: doctor.rpps,
+      pharmacist: doctor.pharmacist,
     })
   } else {
     res.statusCode = 405
