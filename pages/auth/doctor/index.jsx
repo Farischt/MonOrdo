@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
+import Link from "next/link"
 
 import DoctorApi from "@/client/Doctor"
 import Layout from "@/components/layout"
@@ -9,6 +10,13 @@ export default function doctorLoginPage({}) {
 
   useEffect(() => {
     router.prefetch("/doctor")
+    router.prefetch("/pharmacist")
+    if (window && window.localStorage.getItem("rememberDoctor")) {
+      setDoctor((previousState) => ({
+        ...previousState,
+        email: window.localStorage.getItem("rememberDoctor"),
+      }))
+    }
   }, [])
 
   const [doctor, setDoctor] = useState({
@@ -17,6 +25,11 @@ export default function doctorLoginPage({}) {
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+  const [remember, setRemember] = useState(false)
+
+  const handleRememberChange = () => {
+    setRemember((previousState) => !previousState)
+  }
 
   const handleChange = (event) => {
     if (error) setError("")
@@ -30,9 +43,19 @@ export default function doctorLoginPage({}) {
     event.preventDefault()
     setLoading(true)
     try {
-      await DoctorApi.login(doctor)
+      const response = await DoctorApi.login(doctor)
+      if (window && remember) {
+        if (window.localStorage.getItem("rememberDoctor")) {
+          window.localStorage.removeItem("rememberDoctor")
+        }
+        window.localStorage.setItem("rememberDoctor", doctor.email)
+      }
       setLoading(false)
-      router.push("/doctor")
+      if (response.data.pharmacist) {
+        router.push("/pharmacist")
+      } else {
+        router.push("/doctor")
+      }
     } catch (error) {
       setError(error.message)
       setLoading(false)
@@ -57,9 +80,22 @@ export default function doctorLoginPage({}) {
           value={doctor.password}
           onChange={handleChange}
         />
+        <input
+          type="checkbox"
+          id="rememberMe"
+          checked={remember}
+          onChange={handleRememberChange}
+        />
+        <label htmlFor="rememberMe"> Se souvenir de moi </label>
+        <Link href="/auth/password">
+          <a> Mot de passe oublié ? </a>
+        </Link>
         {loading && <p> Chargement... </p>}
         {error && <p> {error} </p>}
         <button type="submit"> Envoyer </button>
+        <Link href="/auth">
+          <a> Vous êtes un patient ? </a>
+        </Link>
       </form>
     </Layout>
   )
