@@ -1,5 +1,6 @@
 import Backend from "@/server/index"
 import Database from "@/server/database"
+import EmailService from "@/server/mails/index"
 
 export default async (req, res) => {
   if (req.method === "PATCH") {
@@ -18,6 +19,7 @@ export default async (req, res) => {
 
     doctor.verified = true
     await doctor.save()
+    await EmailService.sendDoctorVerified(doctor.email, doctor.first_name)
 
     res.statusCode = 200
     res.json({ succes: true })
