@@ -1,9 +1,11 @@
 import Layout from "@/components/layout"
 
-export default function DoctorIndexPage({ user }) {
+export default function DoctorIndexPage({ user, prescriptions }) {
   return (
     <Layout user={user}>
       <h1> Bienvenue sur votre espace médecin {user.first_name} </h1>
+      <h3> Vos ordonnances : </h3>
+      {prescriptions && prescriptions.length && JSON.stringify(prescriptions)}
     </Layout>
   )
 }
@@ -22,6 +24,20 @@ export const getServerSideProps = async (context) => {
     }
   }
 
+  const prescriptions = await Promise.all(
+    (
+      await user.getDoctorPrescriptions()
+    ).map(async (prescription) => {
+      return {
+        patient: await prescription.getPatient(),
+        expiration_date: prescription.expiration_date,
+        reusable: prescription.reusable,
+        max_use: prescription.max_use,
+        content: prescription.content,
+      }
+    })
+  )
+
   return {
     props: {
       user: user && {
@@ -37,6 +53,24 @@ export const getServerSideProps = async (context) => {
         doctor_card: user.doctor_card,
         identity_card: user.identity_card,
       },
+
+      prescriptions:
+        prescriptions &&
+        prescriptions.map((prescription) => ({
+          patient: {
+            id: prescription.patient.id,
+            first_name: prescription.patient.first_name,
+            last_name: prescription.patient.last_name,
+            email: prescription.patient.email,
+            social_security: prescription.patient.social_security,
+            phone_number: prescription.patient.phone_number,
+            birth_date: prescription.patient.birth_date,
+          },
+          expiration_date: prescription.expiration_date,
+          reusable: prescription.reusable,
+          max_use: prescription.max_use,
+          content: prescription.content,
+        })),
     },
   }
 }
