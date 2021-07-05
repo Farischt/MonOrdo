@@ -29,7 +29,7 @@ class DoctorApi {
       data.append("repeatPassword", doctor.repeatPassword)
     if (doctor.identity_card) data.append("identity_card", doctor.identity_card)
     if (doctor.doctor_card) data.append("doctor_card", doctor.doctor_card)
-    if (doctor.pharmacist) data.append("pharmacist", doctor.pharmacist)
+    data.append("pharmacist", doctor.pharmacist)
     return await axios.post(
       `${API_URL}/${this.AUTH_URI}/${this.DOCTOR_URI}/register`,
       data

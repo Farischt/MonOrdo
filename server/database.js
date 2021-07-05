@@ -23,7 +23,7 @@ const sync = false
     await sequelize.sync({ force: true })
     console.log("All models syncronized")
   }
-  // await models.Prescription.sync({ force: true })
+  // await models.Prescription.sync({ alter: true })
   // await models.Doctor.sync({ force: true })
 })()
 

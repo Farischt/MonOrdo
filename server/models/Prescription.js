@@ -62,6 +62,21 @@ export default (sequelize, Doctor, User) =>
         },
       },
 
+      used: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          min: 0,
+        },
+        defaultValue: 0,
+      },
+
+      expired: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+
       content: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,

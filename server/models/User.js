@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize"
 import bcryptjs from "bcryptjs"
+import Database from "@/server/database"
 
 const SALT_ROUND = 10
 
@@ -24,6 +25,12 @@ class User extends Model {
       password !== null && password !== undefined
         ? await bcryptjs.hash(password, SALT_ROUND)
         : null
+  }
+
+  async getPrescriptions() {
+    return await Database.Prescription.findAll({
+      where: { prescripted_for: this.id },
+    })
   }
 }
 

@@ -5,7 +5,8 @@
             "@/components/*": ["components/*"],
             "@/styles/*": ["styles/*"],
             "@/client/*": ["client/*"],
-            "@/server/*": ["server/*"]
+            "@/server/*": ["server/*"],
+            "@/public/*": ["public/*"]
         }
     }
 }
