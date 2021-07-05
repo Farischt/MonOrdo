@@ -1,5 +1,6 @@
 import { Sequelize, DataTypes, Model } from "sequelize"
 import bcryptjs from "bcryptjs"
+import Database from "@/server/database"
 
 const SALT_ROUND = 10
 
@@ -14,6 +15,12 @@ class Doctor extends Model {
 
   static async rppsTaken(rpps) {
     return rpps && (await Doctor.findOne({ where: { rpps } })) ? true : false
+  }
+
+  async getDoctorPrescriptions() {
+    return await Database.Prescription.findAll({
+      where: { prescripted_by: this.id },
+    })
   }
 
   async checkPassword(password) {
