@@ -93,7 +93,7 @@ export default function doctorLoginPage({}) {
         {loading && <p> Chargement... </p>}
         {error && <p> {error} </p>}
         <button type="submit"> Envoyer </button>
-        <Link href="/auth">
+        <Link href="/">
           <a> Vous êtes un patient ? </a>
         </Link>
       </form>
