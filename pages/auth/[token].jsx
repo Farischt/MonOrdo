@@ -1,14 +1,21 @@
-import Layout from "@/components/layout/index"
+import styles from "@/styles/Register.module.css"
+import Link from "next/link"
 
 export default function AccountConfirmationPage({ email, first_name }) {
   return (
-    <Layout user={null}>
-      <h1> {first_name}, votre compte est maintenant validé ! </h1>
-      <p>
-        Votre adresse mail {email} est valide ! Vous pouvez dès à présent
-        profiter de 100% des fonctionnalités de MonOrdo !{" "}
-      </p>
-    </Layout>
+    <div className={styles.validationBackground}>
+      <div style={{ width: "100%", textAlign: "center" }}>
+        <h1> {first_name}, votre compte est maintenant validé ! </h1>
+        <br />
+        <p>
+          Votre adresse mail <strong> {email} </strong> est valide ! Vous pouvez
+          dès à présent profiter de 100% des fonctionnalités de MonOrdo !
+        </p>
+      </div>
+      <Link href="/">
+        <button className={styles.redirectAuth}>Se connecter</button>
+      </Link>
+    </div>
   )
 }
 

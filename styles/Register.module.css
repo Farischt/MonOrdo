@@ -1,0 +1,196 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.sides {
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.sides:last-child {
+  background-color: #0099fa;
+  padding: 0 25px;
+}
+
+.rightSide {
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.leftSide {
+  background-color: #0099fa;
+  padding: 0 25px;
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.authBlock {
+  font-size: 16px;
+  width: 100%;
+}
+
+.headerSection {
+  width: 100%;
+  text-align: center;
+}
+
+.input {
+  background: #f1f6f9;
+  margin-bottom: 20px;
+  padding: 5px 5px 20px 15px;
+  border-radius: 10px;
+  max-width: 450px;
+  width: 40%;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.input input {
+  border: none;
+  background: #f1f6f9;
+  outline: none;
+  width: 100%;
+  overflow: visible;
+}
+
+.label {
+  font-size: 13px;
+  color: #979797;
+}
+
+.loginBlock {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.loginBlock label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #90d35f;
+  text-decoration: none;
+}
+
+.loginBlock a {
+  font-size: 13px;
+  font-weight: 500;
+  color: #90d35f;
+  text-decoration: none;
+}
+
+.loginBlock p {
+  font-size: 16px;
+  text-align: center;
+  color: #979797;
+  margin-top: 25px;
+}
+
+.loginBtn {
+  max-width: 450px;
+  background: #90d35f;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 10px 0px 10px 0px;
+  width: 100%;
+  text-transform: none;
+  margin-top: 15px;
+}
+
+.proSanteConnect {
+  background: white;
+  box-shadow: 1px 2px 7px rgba(5, 131, 211, 0.2);
+  border-radius: 5px;
+  max-width: 450px;
+  max-height: 100px;
+  padding: 0 10px;
+  margin: 30px 0px 70px 0px;
+}
+
+.form {
+  margin-top: 25px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.redirectMedic {
+  padding: 10px 15px 10px 15px;
+  border: none;
+  background: #f1f6f9;
+  box-shadow: 2px 4px 30px #4073b6;
+  border-radius: 10px;
+  margin: 20px 20px 0px 0px;
+  color: #003e77;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 9999;
+  cursor: pointer;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+.redirectAuth {
+  padding: 10px 15px 10px 15px;
+  border: none;
+  background: #f1f6f9;
+  box-shadow: 2px 4px 30px #4073b6;
+  border-radius: 10px;
+  margin: 20px 20px 0px 0px;
+  color: #003e77;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  /* position: absolute;
+  transform: translate(-50%, -50%); */
+}
+
+.error {
+  font-size: 16px;
+  text-align: center;
+  color: #dc3546 !important;
+  margin-top: 25px;
+}
+
+.title {
+  width: 100%;
+  font-size: 65px;
+  font-weight: bold;
+  color: white;
+}
+
+.description {
+  font-size: 30px;
+  font-weight: normal;
+  color: white;
+}
+
+.validationBackground {
+  width: 100vw;
+  height: 100vh;
+  background-color: #0099fa;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+}

@@ -1,13 +1,14 @@
 import { useState } from "react"
-import { useRouter } from "next/router"
 import Link from "next/link"
+import Image from "next/image"
 
-import Layout from "@/components/layout"
 import DoctorApi from "@/client/Doctor"
+import Spinner from "@/components/Spinner"
+import styles from "@/styles/Register.module.css"
+
+import logo from "@/public/logo.svg"
 
 export default function RegisterPage({}) {
-  const router = useRouter()
-
   const [doctor, setDoctor] = useState({
     first_name: "",
     last_name: "",
@@ -23,9 +24,11 @@ export default function RegisterPage({}) {
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
 
   const handleChange = (event) => {
     if (error) setError("")
+    if (success) setSuccess("")
 
     if (
       event.target.name === "identity_card" ||
@@ -51,7 +54,7 @@ export default function RegisterPage({}) {
     try {
       await DoctorApi.register(doctor)
       setLoading(false)
-      router.push("/")
+      setSuccess("Votre inscription a bien été enregistré !")
     } catch (error) {
       switch (error.response.data.error) {
         case "invalid_phone_number":
@@ -64,159 +67,198 @@ export default function RegisterPage({}) {
           setError("Vos mots de passe ne sont pas identiques !")
           break
         case "passwords_are_not_the_same":
-          setError("Your passwords are not the same !")
+          setError("Vos mots de passe ne sont pas identiques !")
           break
         case "password_too_short":
-          setError("Your password must be at least 8 characters long !")
+          setError("Votre mot de passe doit contenir au moins 8 caractères !")
           break
         case "password_lowercase_weakness":
           setError(
-            "Your password must contain at least one lowercase character !"
+            "Votre mot de passe doit contenir au moins un caractère minuscule !"
           )
           break
         case "password_uppercase_weakness":
           setError(
-            "Your password must contain at least one uppercase character !"
+            "Votre mot de passe doit contenir au moins un caractère majuscule !"
           )
           break
         case "password_number_weakness":
-          setError("Your password must contain at least one digit !")
+          setError("Votre mot de passe doit contenir au moins un chiffre !")
           break
         case "password_special_weakness":
           setError(
-            "Your password must contain at least one special character !"
+            "Votre mot de passe doit contenir au moins un caractère spécial !"
           )
           break
         case "email_taken":
-          setError("Cette adresse mail est déjà utilisé !")
+          setError("Cet e-mail est déjà utilisé !")
           break
         case "rpps_taken":
           setError("Ce numéro RPPS est déjà utlisé !")
           break
         default:
-          setError("An unknow error occured !")
+          setError("Erreur inconnue !")
       }
       setLoading(false)
     }
   }
 
   return (
-    <Layout user={null}>
-      <form method="POST" onSubmit={handleSubmit}>
-        <h1> Sign up </h1>
-        <input
-          type="text"
-          name="first_name"
-          placeholder="First name"
-          value={doctor.first_name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="last_name"
-          placeholder="Last name"
-          value={doctor.last_name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={doctor.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="date"
-          name="birth_date"
-          placeholder="Date de naissance"
-          value={doctor.birth_date}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="phone_number"
-          placeholder="Phone number"
-          value={doctor.phone_number}
-          onChange={handleChange}
-          minLength="10"
-          maxLength="10"
-          required
-        />
-        <input
-          type="text"
-          name="rpps"
-          placeholder="Numéro RPPS"
-          value={doctor.rpps}
-          onChange={handleChange}
-          minLength="11"
-          maxLength="11"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={doctor.password}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="repeatPassword"
-          placeholder="Password"
-          value={doctor.repeatPassword}
-          onChange={handleChange}
-          required
-        />
-        <label htmlFor="identity_card"> Carte d'identité </label>
-        <input
-          type="file"
-          id="identity_card"
-          name="identity_card"
-          onChange={handleChange}
-          required
-        />
-        <label htmlFor="doctor_card"> Carte de médecin </label>
-        <input
-          type="file"
-          id="doctor_card"
-          name="doctor_card"
-          onChange={handleChange}
-          required
-        />
-        <label htmlFor="pharmacist"> Êtes vous un pharmacien ?</label>
-        <input
-          type="checkbox"
-          id="pharmacist"
-          name="pharmacist"
-          value={doctor.pharmacist}
-          onChange={handleChange}
-          required
-        />
-        {doctor && doctor.doctor_card && (
-          <img
-            src={URL.createObjectURL(doctor.doctor_card)}
-            style={{ height: "10rem", width: "20rem", objectFit: "cover" }}
-          />
-        )}
-        {doctor && doctor.identity_card && (
-          <img
-            src={URL.createObjectURL(doctor.identity_card)}
-            style={{ height: "10rem", width: "20rem", objectFit: "cover" }}
-          />
-        )}
-        <button type="submit"> Send </button>
-        {error && <p> {error} </p>}
-        {loading && <p> Loading... </p>}
+    <div className={styles.container}>
+      <section className={styles.sides}>
+        <div className={styles.authBlock}>
+          <div className={styles.headerSection}>
+            <Image src={logo} alt="Logo" width="100px" height="100px" />
+            <h2>Inscription MonOrdo Docteur</h2>
+          </div>
+          <form className={styles.form} method="POST" onSubmit={handleSubmit}>
+            <div className={styles.input}>
+              <p className={styles.label}>Prénom</p>
+              <input
+                type="text"
+                name="first_name"
+                placeholder="..."
+                value={doctor.first_name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className={styles.input}>
+              <p className={styles.label}>Nom</p>
+              <input
+                type="text"
+                name="last_name"
+                placeholder="..."
+                value={doctor.last_name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className={styles.input}>
+              <p className={styles.label}>Email</p>
+              <input
+                type="email"
+                name="email"
+                placeholder="..."
+                value={doctor.email}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.input}>
+              <p className={styles.label}>Date de naissance</p>
+              <input
+                type="date"
+                name="birth_date"
+                placeholder="..."
+                value={doctor.birth_date}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className={styles.input}>
+              <p className={styles.label}>Téléphone</p>
+              <input
+                type="tel"
+                name="phone_number"
+                placeholder="..."
+                value={doctor.phone_number}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className={styles.input}>
+              <p className={styles.label}>RPPS</p>
+              <input
+                type="text"
+                name="rpps"
+                placeholder="..."
+                value={doctor.rpps}
+                onChange={handleChange}
+                minLength="11"
+                maxLength="11"
+                required
+              />
+            </div>
+            <div className={styles.input}>
+              <p className={styles.label}>Mot de passe</p>
+              <input
+                type="password"
+                name="password"
+                placeholder="..."
+                value={doctor.password}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.input}>
+              <p className={styles.label}>Répéter mot de passe</p>
+              <input
+                type="password"
+                name="repeatPassword"
+                placeholder="..."
+                value={doctor.repeatPassword}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className={styles.input}>
+              <p className={styles.label}>Carte d'indentité</p>
+              <input
+                type="file"
+                id="identity_card"
+                name="identity_card"
+                placeholder="..."
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className={styles.input}>
+              <p className={styles.label}>Carte de médecin</p>
+              <input
+                type="file"
+                id="doctor_card"
+                name="doctor_card"
+                placeholder="..."
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="pharmacist"> Êtes vous un pharmacien ?</label>
+              <input
+                type="checkbox"
+                id="pharmacist"
+                name="pharmacist"
+                value={doctor.pharmacist}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.loginBlock}>
+              {error && <p className={styles.error}> {error} </p>}
+              {success && <p> {success} </p>}
+              {loading && <Spinner />}
+              <button className={styles.loginBtn} type="submit">
+                S'inscrire
+              </button>
+            </div>
+
+            <Link href="/auth/doctor">
+              <a style={{ marginTop: "15px" }}> Vous avez déjà un compte ? </a>
+            </Link>
+          </form>
+        </div>
+      </section>
+      <section className={styles.sides}>
         <Link href="/auth/register">
-          <a> Vous êtes patient ? </a>
+          <button className={styles.redirectMedic}>Vous êtes patient ?</button>
         </Link>
-      </form>
-    </Layout>
+        <div>
+          <h1 className={styles.title}>MonOrdo</h1>
+          <p className={styles.description}>
+            L'ordonnance en ligne sécurisée et rapide.
+          </p>
+        </div>
+      </section>
+    </div>
   )
 }
 

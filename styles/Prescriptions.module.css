@@ -1,0 +1,167 @@
+.page {
+  background-color: #f9fdff;
+  height: 100vh;
+  width: 100vw;
+}
+
+.main {
+  padding: 0 20% 0 20%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.main form {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-bottom: 15px;
+}
+
+.search {
+  width: 100%;
+  border: none;
+  padding: 15px;
+  height: 50px;
+  border-radius: 25px;
+  outline: none;
+  box-shadow: 1px 6px 20px rgba(5, 75, 120, 0.15);
+  font-size: large;
+  color: rgba(151, 151, 151, 0.8);
+  margin-bottom: 15px;
+}
+
+.orders {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.prescriptionsList {
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.prescriptionsList hr {
+  margin-top: 25px;
+  border: 0.5px solid rgba(5, 131, 211, 0.2);
+}
+
+.prescriptionsTable {
+  width: 100%;
+  border-collapse: separate;
+}
+
+.prescriptionsTable tr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 5px;
+  color: #004977;
+  background: #ffffff;
+  box-shadow: 1px 6px 20px rgba(5, 75, 120, 0.15);
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.prescriptionsTable tr:last-child {
+  border-bottom: none;
+}
+
+.prescriptionsTable tr td:last-child {
+  text-align: end;
+}
+
+.prescriptionsTable tr td:nth-child(2) {
+  text-align: end;
+}
+
+.prescriptionsTable td {
+  padding: 15px;
+  width: 33%;
+}
+
+.prescriptionsTable .date {
+  text-align: end;
+}
+
+.buttonContainer {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+button.consult,
+button.validate,
+button.destination {
+  padding: 5px 15px 5px 15px;
+  font-size: small;
+}
+
+button.consult {
+  background: #ffffff;
+  border: 0.2px solid rgba(0, 153, 250, 0.31);
+  box-sizing: border-box;
+  box-shadow: 1px 2px 7px rgba(5, 131, 211, 0.16);
+  border-radius: 11.5px;
+  color: #004977;
+}
+
+button.validate {
+  background: linear-gradient(180deg, #90d35f 0%, #6fb33e 100%);
+  border-radius: 15px;
+  border: none;
+  color: white;
+}
+
+button.more {
+  background: linear-gradient(180deg, #0099fa 0%, #0583d3 100%);
+  border-radius: 15px;
+  border: none;
+  font-weight: 600;
+  font-size: large;
+  color: white;
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px 0 10px 0;
+}
+
+button.destination {
+  margin-top: 10px;
+  background: linear-gradient(180deg, #0099fa 0%, #028ae0 100%);
+  border-radius: 15px;
+  border: none;
+  color: white;
+  max-height: 30px;
+}
+
+.call {
+  color: #0099fa;
+}
+
+.card {
+  padding: 1.5rem;
+  text-decoration: none;
+  border-radius: 25px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 1px 6px 20px rgba(5, 75, 120, 0.15);
+}
+
+/* Phones */
+
+@media (max-width: 480px) {
+  .main {
+    padding: 0 25px 0 25px;
+  }
+
+  .prescriptions,
+  .pharmacies {
+    width: 100%;
+  }
+}

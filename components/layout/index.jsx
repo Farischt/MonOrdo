@@ -1,12 +1,12 @@
 import Header from "./Header"
-import Footer from "./Footer"
+import Navbar from "./Navbar"
 
-export default function Layout({ children, user }) {
+export default function Layout({ children, user, title }) {
   return (
     <>
-      <Header user={user} />
+      <Header user={user} title={title} />
       {children}
-      <Footer />
+      <Navbar user={user}></Navbar>
     </>
   )
 }

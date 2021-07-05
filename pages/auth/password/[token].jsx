@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
+import Link from "next/link"
+import Image from "next/image"
 
-import Layout from "@/components/layout"
 import AuthApi from "@/client/Auth"
+import Spinner from "@/components/Spinner"
+import styles from "@/styles/Login.module.css"
+import logo from "@/public/logo.svg"
 
 export default function PasswordResetConfirmationPage({ token }) {
   const router = useRouter()
@@ -17,7 +21,7 @@ export default function PasswordResetConfirmationPage({ token }) {
   useEffect(() => {
     if (token.id) {
       setData((state) => ({ ...state, resetToken: token.id }))
-      router.prefetch("/auth")
+      router.prefetch("/")
     }
   }, [])
 
@@ -32,7 +36,7 @@ export default function PasswordResetConfirmationPage({ token }) {
     try {
       await AuthApi.passwordResetConfirm(data)
       setLoading(false)
-      router.push("/auth")
+      router.push("/")
     } catch (error) {
       switch (error.response.data.error) {
         case "passwords_are_not_the_same":
@@ -68,30 +72,60 @@ export default function PasswordResetConfirmationPage({ token }) {
   }
 
   return (
-    <Layout user={null}>
-      <form method="PATCH" onSubmit={handleSubmit}>
-        <input value={token.email} readOnly />
-        <input
-          type="password"
-          name="newPassword"
-          placeholder="Nouveau mot de passe..."
-          onChange={handleChange}
-          value={data.newPassword}
-          required
-        />
-        <input
-          type="password"
-          name="repeatPassword"
-          placeholder="Repeter votre nouveau mot de passe..."
-          onChange={handleChange}
-          value={data.repeatPassword}
-          required
-        />
-        {loading && <p> Chargement... </p>}
-        {error && <p> {error} </p>}
-        <button type="submit"> Envoyer </button>
-      </form>
-    </Layout>
+    <div className={styles.container}>
+      <section className={styles.leftSide}>
+        <Link href="/">
+          <button className={styles.redirectMedic}> Se connecter ? </button>
+        </Link>
+        <div>
+          <h1 className={styles.title}>MonOrdo</h1>
+          <p className={styles.description}>
+            L'ordonnance en ligne sécurisée et rapide.
+          </p>
+        </div>
+      </section>
+      <section className={styles.rightSide}>
+        <div className={styles.authBlock}>
+          <div className={styles.headerSection}>
+            <Image src={logo} alt="Logo" width="100px" height="100px" />
+            <h2> Votre nouveau mot de passe </h2>
+          </div>
+          <form className={styles.form} method="PATCH" onSubmit={handleSubmit}>
+            <div className={styles.input}>
+              <p className={styles.label}>E-mail</p>
+              <input value={token.email} readOnly />
+            </div>
+            <div className={styles.input}>
+              <p className={styles.label}>Nouveau mot de passe</p>
+              <input
+                type="password"
+                name="newPassword"
+                placeholder="Nouveau mot de passe..."
+                value={data.newPassword}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.input}>
+              <p className={styles.label}>Nouveau mot de passe</p>
+              <input
+                type="password"
+                name="repeatPassword"
+                placeholder="Repeter votre nouveau mot de passe..."
+                value={data.repeatPassword}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className={styles.loginBlock}>
+              {error && <p className={styles.error}> {error} </p>}
+              {/* {success && <p> {success} </p>} */}
+              {loading && <Spinner />}
+              <button className={styles.loginBtn}> Envoyer </button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
   )
 }
 

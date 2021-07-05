@@ -1,0 +1,134 @@
+.page {
+  background-color: #f9fdff;
+  height: 100vh;
+  width: 100vw;
+}
+
+.main {
+  padding: 0 20% 0 20%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.favorite {
+  width: 45%;
+}
+
+.favorite .headerText {
+  color: #004977;
+  font-weight: 500;
+  font-size: larger;
+}
+
+.favorite .title {
+  margin-bottom: 5px;
+  color: #004977;
+  font-weight: 600;
+  font-size: large;
+}
+
+.favorite .distance {
+  margin-top: 0;
+  color: #004977;
+  font-weight: 400;
+  font-size: small;
+}
+
+.favorite .description {
+  color: #004977;
+  font-weight: 300;
+  font-size: medium;
+}
+
+.favorite .header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.informations {
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.informations hr {
+  margin-top: 25px;
+  border: 0.5px solid rgba(5, 131, 211, 0.2);
+}
+
+.informations .headerText {
+  color: #004977;
+  font-weight: 500;
+  font-size: larger;
+  margin-bottom: 15px;
+}
+
+.informationsTable {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 15px;
+  padding: 15px;
+}
+
+.informationsTable tr {
+  width: 100%;
+  border-bottom: 0.5px solid rgba(5, 131, 211, 0.2);
+  padding: 15px;
+  color: #004977;
+}
+
+.informationsTable tr:last-child {
+  border-bottom: none;
+}
+
+.informationsTable td {
+  width: 50%;
+  padding: 15px;
+}
+
+.informationsTable .detail {
+  text-align: end;
+}
+
+button.destination {
+  margin-top: 10px;
+  background: linear-gradient(180deg, #0099fa 0%, #028ae0 100%);
+  border-radius: 15px;
+  border: none;
+  color: white;
+  max-height: 30px;
+  padding: 5px 15px 5px 15px;
+  font-size: small;
+}
+
+.call {
+  color: #0099fa;
+}
+
+.card {
+  padding: 1.5rem;
+  text-decoration: none;
+  border-radius: 25px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 1px 6px 20px rgba(5, 75, 120, 0.15);
+}
+
+/* Phones */
+
+@media (max-width: 480px) {
+  .main {
+    padding: 0 25px 0 25px;
+  }
+
+  .prescriptions,
+  .favorite {
+    width: 100%;
+  }
+
+  .favorite:last-child {
+    margin-bottom: 100px;
+  }
+}
