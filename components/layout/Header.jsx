@@ -24,8 +24,7 @@ export default function Footer({ user, title }) {
         <p>{title}</p>
         {user && (
           <button onClick={handleLogout} className={styles.button}>
-            {" "}
-            Log out{" "}
+            Déconnexion
           </button>
         )}
         <Link href="/" passHref>
@@ -40,57 +39,6 @@ export default function Footer({ user, title }) {
           </div>
         </Link>
       </div>
-
-      {/* <nav>
-        <ul>
-          <li>
-            <Link href="/">
-              <a> Home </a>
-            </Link>
-          </li>
-          {user && user.rpps && !user.pharmacist && (
-            <li>
-              <Link href="/doctor">
-                <a> Espace médecin </a>
-              </Link>
-            </li>
-          )}
-          {user && user.admin && (
-            <li>
-              <Link href="/admin">
-                <a> Admin </a>
-              </Link>
-            </li>
-          )}
-          {user && user.pharmacist && (
-            <li>
-              <Link href="/pharmacist">
-                <a> Espace pharmacien </a>
-              </Link>
-            </li>
-          )}
-
-          {!user && (
-            <>
-              <li>
-                <Link href="/">
-                  <a className={styles.button}> Sign in </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/auth/register">
-                  <a className={styles.button}> Sign Up </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/auth/doctor">
-                  <a className={styles.button}> Connexion médecin </a>
-                </Link>
-              </li>
-            </>
-          )}
-        </ul>
-      </nav> */}
     </>
   )
 }
