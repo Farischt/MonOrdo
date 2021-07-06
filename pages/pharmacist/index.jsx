@@ -1,46 +1,21 @@
-import Layout from "@/components/layout"
-import Link from "next/link"
+import { useState } from "react"
 
-import styles from "@/styles/Profile.module.css"
+import Layout from "@/components/layout/index"
 
-export default function DoctorIndexPage({ user }) {
+export default function PharmacistIndexPage({ user }) {
+  const [data, setData] = useState("Scannez votre QR Code")
+
+  const handleScan = (data) => {
+    setData(data)
+  }
+
+  const handleError = (error) => {
+    console.log(error)
+  }
+
   return (
-    <Layout user={user} title={`Votre espace pharmacien`}>
-      <main className={styles.main}>
-        <section className={styles.informations}>
-          <p className={styles.headerText}>Mes informations</p>
-          <div className={styles.card}>
-            <table className={styles.informationsTable}>
-              <tr>
-                <td>Nom</td>
-                <td className={styles.detail}>{user.last_name}</td>
-              </tr>
-              <tr>
-                <td>Prénom</td>
-                <td className={styles.detail}>{user.first_name}</td>
-              </tr>
-              <tr>
-                <td>N° de RPPS</td>
-                <td className={styles.detail}>{user.rpps}</td>
-              </tr>
-              <tr>
-                <td>Date de naissance</td>
-                <td className={styles.detail}>{user.birth_date}</td>
-              </tr>
-              <tr>
-                <td>N° de téléphone</td>
-                <Link href={`tel:${user.phone_number}`} passHref>
-                  <td className={styles.detail}>{user.phone_number}</td>
-                </Link>
-              </tr>
-              <tr>
-                <td>Email</td>
-                <td className={styles.detail}>{user.email}</td>
-              </tr>
-            </table>
-          </div>
-        </section>
-      </main>
+    <Layout user={user} title={`Bienvenu ${user.first_name}`}>
+      <p> {data && data} </p>
     </Layout>
   )
 }
