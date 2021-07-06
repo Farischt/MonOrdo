@@ -8,14 +8,18 @@ export default async (req, res) => {
     return res.send()
   } else if (asset.private) {
     const user = await Backend.getAuthenticatedUser({ req, res })
-    if (!user || !user.admin) {
+    if (
+      (user && user.doctor_card === asset.id) ||
+      (user && user.identity_card === asset.id)
+    ) {
+      res.statusCode = 200
+      res.setHeader("Content-Type", asset.mime_type)
+      return res.send(asset.content)
+    } else if (!user || !user.admin) {
       res.statusCode = 403
       return res.json({ error: "forbidden" })
     }
   }
-
-  //TODO: Handle the case where the doctor wants to see his own documents
-
   res.statusCode = 200
   res.setHeader("Content-Type", asset.mime_type)
   res.send(asset.content)
