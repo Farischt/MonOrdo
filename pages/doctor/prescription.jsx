@@ -91,12 +91,6 @@ export default function DoctorPrescriptionPage({ user, prescriptions }) {
         />
         <p style={{ width: "100%", color: "#979797CC" }}>Trier par</p>
         <section className={styles.orders}>
-          {/* <select name="doctor" id="doctor-select" placeholder="Docteur">
-            <option>Docteur</option>
-            <option value="docteur_x">Docteur X</option>
-            <option value="docteur_y">Docteur Y</option>
-            <option value="docteur_z">Docteur Z</option>
-          </select> */}
           <input
             type="date"
             id="start"
@@ -113,22 +107,36 @@ export default function DoctorPrescriptionPage({ user, prescriptions }) {
         <section className={styles.prescriptionsList}>
           <div>
             <table className={styles.prescriptionsTable}>
-             
-                {prescriptions && prescriptions.length ? prescriptions.map((prescription) =>{
-                  return ( <tbody key={prescription.id}><tr>
-                  <td>
-                    <b>Patient : {user.last_name + " " + user.first_name}</b>
-                  </td>
-                  <td className={styles.date}>{prescription.created_at}</td>
-                  <td>
-                    <Link href="/prescription" passHref>
-                      <button className={styles.validate}>UTILISER</button>
-                    </Link>
-                  </td>
-                </tr>
-                </tbody>)
-                }) : <p style={{textAlign: "center"}}> Vous n'avez aucune ordonnance pour le moment... </p> }    
-              
+              {prescriptions && prescriptions.length ? (
+                prescriptions.map((prescription) => {
+                  return (
+                    <tbody key={prescription.id}>
+                      <tr>
+                        <td>
+                          <b>
+                            Patient : {user.last_name + " " + user.first_name}
+                          </b>
+                        </td>
+                        <td className={styles.date}>
+                          {prescription.created_at}
+                        </td>
+                        <td>
+                          <Link href="/prescription" passHref>
+                            <button className={styles.validate}>
+                              UTILISER
+                            </button>
+                          </Link>
+                        </td>
+                      </tr>
+                    </tbody>
+                  )
+                })
+              ) : (
+                <p style={{ textAlign: "center" }}>
+                  {" "}
+                  Vous n'avez aucune ordonnance pour le moment...{" "}
+                </p>
+              )}
             </table>
           </div>
         </section>
