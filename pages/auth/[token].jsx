@@ -8,7 +8,7 @@ export default function AccountConfirmationPage({ email, first_name }) {
         <h1> {first_name}, votre compte est maintenant validé ! </h1>
         <br />
         <p>
-          Votre adresse mail <strong> {email} </strong> est valide ! Vous pouvez
+          Votre adresse mail <strong> {email} </strong> est validée ! Vous pouvez
           dès à présent profiter de 100% des fonctionnalités de MonOrdo !
         </p>
       </div>
