@@ -1,9 +1,46 @@
 import Layout from "@/components/layout"
+import Link from "next/link"
+
+import styles from "@/styles/Profile.module.css"
 
 export default function DoctorIndexPage({ user }) {
   return (
-    <Layout user={user}>
-      <h1> Bienvenue sur votre espace pharmacien {user.first_name} </h1>
+    <Layout user={user} title={`Votre espace pharmacien`}>
+      <main className={styles.main}>
+        <section className={styles.informations}>
+          <p className={styles.headerText}>Mes informations</p>
+          <div className={styles.card}>
+            <table className={styles.informationsTable}>
+              <tr>
+                <td>Nom</td>
+                <td className={styles.detail}>{user.last_name}</td>
+              </tr>
+              <tr>
+                <td>Prénom</td>
+                <td className={styles.detail}>{user.first_name}</td>
+              </tr>
+              <tr>
+                <td>N° de RPPS</td>
+                <td className={styles.detail}>{user.rpps}</td>
+              </tr>
+              <tr>
+                <td>Date de naissance</td>
+                <td className={styles.detail}>{user.birth_date}</td>
+              </tr>
+              <tr>
+                <td>N° de téléphone</td>
+                <Link href={`tel:${user.phone_number}`} passHref>
+                  <td className={styles.detail}>{user.phone_number}</td>
+                </Link>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td className={styles.detail}>{user.email}</td>
+              </tr>
+            </table>
+          </div>
+        </section>
+      </main>
     </Layout>
   )
 }
@@ -16,7 +53,7 @@ export const getServerSideProps = async (context) => {
   if (!user || !user.pharmacist) {
     return {
       redirect: {
-        destination: "/auth",
+        destination: "/",
         permanent: false,
       },
     }

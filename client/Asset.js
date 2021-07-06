@@ -1,7 +1,7 @@
 import { API_URL } from "./config.json"
 
-class AssetsApi {
-  constructo() {
+class AssetApi {
+  constructor() {
     this.ASSET_URI = "asset"
   }
 
@@ -10,4 +10,4 @@ class AssetsApi {
   }
 }
 
-export default new AssetsApi()
+export default new AssetApi()
