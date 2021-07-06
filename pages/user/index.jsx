@@ -95,6 +95,16 @@ export default function HomePage({ user, prescriptions }) {
                         <td className={styles.date}>
                           {prescription.created_at}
                         </td>
+                        <td className={styles.date}>
+                          <Link
+                            href="/prescription/[prescriptionId]"
+                            as={`/prescription/${prescription.id}`}
+                          >
+                            <button className={styles.consult}>
+                              Consulter l&apos;ordonnance
+                            </button>
+                          </Link>
+                        </td>
                       </tr>
                     )
                   })
