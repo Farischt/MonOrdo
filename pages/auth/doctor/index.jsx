@@ -68,41 +68,6 @@ export default function doctorLoginPage({}) {
   }
 
   return (
-    // <Layout user={null}>
-    //   <form method="POST" onSubmit={handleSubmit}>
-    //     <h1> Connexion Docteur </h1>
-    //     <input
-    //       type="email"
-    //       name="email"
-    //       placeholder="Email"
-    //       value={doctor.email}
-    //       onChange={handleChange}
-    //     />
-    //     <input
-    //       type="password"
-    //       name="password"
-    //       placeholder="Mot de passe"
-    //       value={doctor.password}
-    //       onChange={handleChange}
-    //     />
-    //     <input
-    //       type="checkbox"
-    //       id="rememberMe"
-    //       checked={remember}
-    //       onChange={handleRememberChange}
-    //     />
-    //     <label htmlFor="rememberMe"> Se souvenir de moi </label>
-    //     <Link href="/auth/password">
-    //       <a> Mot de passe oublié ? </a>
-    //     </Link>
-    //     {loading && <Spinner />}
-    //     {error && <p> {error} </p>}
-    //     <button type="submit"> Envoyer </button>
-    //     <Link href="/">
-    //       <a> Vous êtes un patient ? </a>
-    //     </Link>
-    //   </form>
-    // </Layout>
     <div className={styles.container}>
       <section className={styles.sides}>
         <div className={styles.authBlock}>

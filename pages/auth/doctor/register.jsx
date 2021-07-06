@@ -54,7 +54,7 @@ export default function RegisterPage({}) {
     try {
       await DoctorApi.register(doctor)
       setLoading(false)
-      setSuccess("Votre inscription a bien été enregistré !")
+      setSuccess("Votre inscription a bien été enregistrée !")
     } catch (error) {
       switch (error.response.data.error) {
         case "invalid_phone_number":

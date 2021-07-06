@@ -6,7 +6,6 @@ export default function HomePage({ user, prescriptions }) {
   return (
     <Layout user={user} title={`Page d'accueil du patient ${user.first_name}`}>
       <div className={styles.page}>
-        {/* <Header name={"Mon espace MonOrdo"} /> */}
         <main className={styles.main}>
           {/* <ProfileCard name={"Ornella"} /> */}
           <section className={styles.prescriptions}>
