@@ -3,7 +3,7 @@ import { useState } from "react"
 import Layout from "@/components/layout/index"
 
 export default function PharmacistIndexPage({ user }) {
-  const [data, setData] = useState("Scannez votre QR Code")
+  const [data, setData] = useState("Scannez le QR Code de votre patient !")
 
   const handleScan = (data) => {
     setData(data)
@@ -15,7 +15,7 @@ export default function PharmacistIndexPage({ user }) {
 
   return (
     <Layout user={user} title={`Bienvenu ${user.first_name}`}>
-      <p> {data && data} </p>
+      <p style={{ textAlign: "center" }}> {data && data} </p>
     </Layout>
   )
 }
