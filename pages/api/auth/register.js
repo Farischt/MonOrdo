@@ -35,7 +35,10 @@ export default async (req, res) => {
       return res.json({ error: "missing_repeat_password" })
     }
 
-    if (await Database.User.emailTaken(req.body.email)) {
+    if (
+      (await Database.User.emailTaken(req.body.email)) ||
+      (await Database.Doctor.emailTaken(req.body.email))
+    ) {
       res.statusCode = 400
       return res.json({ error: "email_taken" })
     }

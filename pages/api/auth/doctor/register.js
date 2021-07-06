@@ -90,7 +90,10 @@ export default async (req, res) => {
 
     const pharmacist = JSON.parse(req.body.pharmacist)
 
-    if (await Database.Doctor.emailTaken(email)) {
+    if (
+      (await Database.Doctor.emailTaken(email)) ||
+      (await Database.User.emailTaken(email))
+    ) {
       res.statusCode = 400
       return res.json({ error: "email_taken" })
     } else if (await Database.Doctor.rppsTaken(rpps)) {
