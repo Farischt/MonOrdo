@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 
 import AdminApi from "@/client/Admin"
-import Layout from "@/components/layout"
+// import Layout from "@/components/layout"
 
 export default function AdminLoginPage({}) {
   const router = useRouter()
@@ -37,28 +37,26 @@ export default function AdminLoginPage({}) {
   }
 
   return (
-    <Layout user={null}>
-      <form method="POST" onSubmit={handleSubmit}>
-        <h1> Connexion Admin </h1>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={admin.email}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Mot de passe"
-          value={admin.password}
-          onChange={handleChange}
-        />
-        {loading && <p> Chargement... </p>}
-        {error && <p> {error} </p>}
-        <button type="submit"> Envoyer </button>
-      </form>
-    </Layout>
+    <form method="POST" onSubmit={handleSubmit}>
+      <h1> Connexion Admin </h1>
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        value={admin.email}
+        onChange={handleChange}
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Mot de passe"
+        value={admin.password}
+        onChange={handleChange}
+      />
+      {loading && <p> Chargement... </p>}
+      {error && <p> {error} </p>}
+      <button type="submit"> Envoyer </button>
+    </form>
   )
 }
 

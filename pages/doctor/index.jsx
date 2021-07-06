@@ -11,7 +11,7 @@ export default function DoctorIndexPage({ user, prescriptions }) {
       user={user}
       title={`Bienvenue sur votre espace médecin ${user.first_name}`}
     >
-      {prescriptions && prescriptions.length && JSON.stringify(prescriptions)}
+      
 
       <div className={styles.page}>
         <main className={styles.main}>
@@ -20,6 +20,7 @@ export default function DoctorIndexPage({ user, prescriptions }) {
             <p className={styles.headerText}>Mes informations</p>
             <div className={styles.card}>
               <table className={styles.informationsTable}>
+              <tbody>
                 <tr>
                   <td>Prénom</td>
                   <td className={styles.detail}>{user.first_name}</td>
@@ -66,11 +67,12 @@ export default function DoctorIndexPage({ user, prescriptions }) {
                     </a>{" "}
                   </td>
                 </tr>
+                </tbody>
               </table>
             </div>
           </section>
 
-          <section className={styles.favorite}>
+          {/* <section className={styles.favorite}>
             <p className={styles.headerText}>Mon médecin traitant</p>
             <div className={styles.card}>
               <div className={styles.header}>
@@ -84,7 +86,7 @@ export default function DoctorIndexPage({ user, prescriptions }) {
                   <p className={styles.description}>Ouvert de 9h à 19h</p>
                   <Link href="tel:06 11 22 33 44" passHref>
                     <p className={styles.call}>
-                      {/* <Image src={phone} alt="Phone"></Image> Appeler */}
+                      <Image src={phone} alt="Phone"></Image> Appeler
                     </p>
                   </Link>
                 </div>
@@ -103,21 +105,21 @@ export default function DoctorIndexPage({ user, prescriptions }) {
                   <p className={styles.title}>Pharmacie du Parc</p>
                   <p className={styles.distance}>à 300m</p>
                 </div>
-                {/* <Image src={heart} alt="Heart"></Image> */}
+                <Image src={heart} alt="Heart"></Image>
               </div>
               <div className={styles.header}>
                 <div>
                   <p className={styles.description}>Ouverte de 9h à 19h</p>
                   <Link href="tel:06 11 22 33 44" passHref>
                     <p className={styles.call}>
-                      {/* <Image src={phone} alt="Phone"></Image> Appeler */}
+                      <Image src={phone} alt="Phone"></Image> Appeler
                     </p>
                   </Link>
                 </div>
                 <button className={styles.destination}>Itinéraire</button>
               </div>
             </div>
-          </section>
+          </section> */}
         </main>
         {/* <Navbar></Navbar> */}
       </div>

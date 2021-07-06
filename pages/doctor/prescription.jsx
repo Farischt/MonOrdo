@@ -4,7 +4,7 @@ import Link from "next/link"
 import Layout from "@/components/layout"
 import styles from "@/styles/Prescriptions.module.css"
 
-export default function DoctorPrescriptionPage({ user }) {
+export default function DoctorPrescriptionPage({ user, prescriptions }) {
   const [prescription, setPrescription] = useState({
     patient_social_code: "",
     expiration_date: "",
@@ -91,12 +91,12 @@ export default function DoctorPrescriptionPage({ user }) {
         />
         <p style={{ width: "100%", color: "#979797CC" }}>Trier par</p>
         <section className={styles.orders}>
-          <select name="doctor" id="doctor-select" placeholder="Docteur">
+          {/* <select name="doctor" id="doctor-select" placeholder="Docteur">
             <option>Docteur</option>
             <option value="docteur_x">Docteur X</option>
             <option value="docteur_y">Docteur Y</option>
             <option value="docteur_z">Docteur Z</option>
-          </select>
+          </select> */}
           <input
             type="date"
             id="start"
@@ -113,57 +113,22 @@ export default function DoctorPrescriptionPage({ user }) {
         <section className={styles.prescriptionsList}>
           <div>
             <table className={styles.prescriptionsTable}>
-              <tbody>
-                <tr>
+             
+                {prescriptions && prescriptions.length ? prescriptions.map((prescription) =>{
+                  return ( <tbody key={prescription.id}><tr>
                   <td>
-                    <b>Docteur X</b>
+                    <b>Patient : {user.last_name + " " + user.first_name}</b>
                   </td>
-                  <td className={styles.date}>10/03/2021</td>
-                  <td>
-                    <Link href="/prescription" passHref>
-                      <button className={styles.validate}>UTILISER</button>
-                    </Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <b>Docteur X</b>
-                  </td>
-                  <td className={styles.date}>09/02/2021</td>
+                  <td className={styles.date}>{prescription.created_at}</td>
                   <td>
                     <Link href="/prescription" passHref>
                       <button className={styles.validate}>UTILISER</button>
                     </Link>
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    <b>Docteur X</b>
-                  </td>
-                  <td className={styles.date}>12/01/2021</td>
-                  <td>
-                    <button className={styles.consult}>Consulter</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <b>Docteur X</b>
-                  </td>
-                  <td className={styles.date}>09/09/2020</td>
-                  <td>
-                    <button className={styles.consult}>Consulter</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <b>Docteur X</b>
-                  </td>
-                  <td className={styles.date}>23/06/2020</td>
-                  <td>
-                    <button className={styles.consult}>Consulter</button>
-                  </td>
-                </tr>
-              </tbody>
+                </tbody>)
+                }) : <p style={{textAlign: "center"}}> Vous n'avez aucune ordonnance pour le moment... </p> }    
+              
             </table>
           </div>
         </section>
@@ -186,6 +151,22 @@ export const getServerSideProps = async (context) => {
     }
   }
 
+  const prescriptions = await Promise.all(
+    (
+      await user.getDoctorPrescriptions()
+    ).map(async (prescription) => {
+      return {
+        id: prescription.id,
+        patient: await prescription.getPatient(),
+        expiration_date: prescription.expiration_date,
+        reusable: prescription.reusable,
+        max_use: prescription.max_use,
+        content: prescription.content,
+        created_at: prescription.createdAt,
+      }
+    })
+  )
+
   return {
     props: {
       user: user && {
@@ -201,6 +182,26 @@ export const getServerSideProps = async (context) => {
         doctor_card: user.doctor_card,
         identity_card: user.identity_card,
       },
+
+      prescriptions:
+        prescriptions &&
+        prescriptions.map((prescription) => ({
+          patient: {
+            id: prescription.patient.id,
+            first_name: prescription.patient.first_name,
+            last_name: prescription.patient.last_name,
+            email: prescription.patient.email,
+            social_security: prescription.patient.social_security,
+            phone_number: prescription.patient.phone_number,
+            birth_date: prescription.patient.birth_date,
+          },
+          id: prescription.id,
+          expiration_date: prescription.expiration_date,
+          reusable: prescription.reusable,
+          max_use: prescription.max_use,
+          content: prescription.content,
+          created_at: prescription.created_at.toLocaleDateString(),
+        })),
     },
   }
 }
