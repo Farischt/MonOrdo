@@ -22,7 +22,8 @@ export default function HomePage({ user, prescriptions }) {
                   <p className={styles.description}>
                     Visite du {prescriptions[0].created_at} -{" "}
                     {prescriptions[0].expired ||
-                    new Date(prescriptions[0].expiration_date) <= Date.now() ? (
+                    Date.now() >=
+                      new Date(prescriptions[0].expiration_date).getTime() ? (
                       <span style={{ color: "red" }}> Expirée </span>
                     ) : (
                       <span style={{ color: "green" }}> Valide </span>
