@@ -1,7 +1,9 @@
 import { useState } from "react"
 import Link from "next/link"
 
+import DoctorApi from "@/client/Doctor"
 import Layout from "@/components/layout"
+import Spinner from "@/components/Spinner"
 import styles from "@/styles/Prescriptions.module.css"
 
 export default function DoctorPrescriptionPage({ user, prescriptions }) {
@@ -10,21 +12,46 @@ export default function DoctorPrescriptionPage({ user, prescriptions }) {
     expiration_date: "",
     reusable: false,
     max_use: 1,
-    content: [""],
+    content: "",
   })
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
 
   const handlePrescriptionChange = (event) => {
+    if (error) setError("")
+    if (success) setSuccess("")
+
     if (event.target.name === "reusable") {
       setPrescription((state) => ({
         ...state,
         reusable: !state.reusable,
+        max_use: 1,
+      }))
+    } else if (event.target.name === "max_use") {
+      setPrescription((state) => ({
+        ...state,
+        max_use: parseInt(event.target.value),
+      }))
+    } else {
+      setPrescription((state) => ({
+        ...state,
+        [event.target.name]: event.target.value,
       }))
     }
+  }
 
-    setPrescription((state) => ({
-      ...state,
-      [event.target.name]: event.target.value,
-    }))
+  const handlePrescriptionSubmit = async (event) => {
+    event.preventDefault()
+    setLoading(true)
+    try {
+      await DoctorApi.createPrescription(prescription)
+      setLoading(false)
+      setSuccess("L'ordonnance a été créée avec succès !")
+    } catch (error) {
+      setLoading(false)
+      setError("Votre ordonnance n'est pas valide !")
+    }
   }
 
   return (
@@ -33,7 +60,7 @@ export default function DoctorPrescriptionPage({ user, prescriptions }) {
         <p style={{ width: "100%", color: "#979797CC", marginBottom: "15px" }}>
           Générer une ordonnance
         </p>
-        <form method="POST">
+        <form method="POST" onSubmit={handlePrescriptionSubmit}>
           <input
             type="text"
             name="patient_social_code"
@@ -46,9 +73,19 @@ export default function DoctorPrescriptionPage({ user, prescriptions }) {
           <input
             type="date"
             name="expiration_date"
+            className={styles.search}
             value={prescription.expiration_date}
             onChange={handlePrescriptionChange}
             placeholder="Date d'éxpiration..."
+            required
+          />
+          <textarea
+            type="text"
+            name="content"
+            placeholder="Contenu de l'ordonnance"
+            className={styles.search}
+            value={prescription.content}
+            onChange={handlePrescriptionChange}
             required
           />
           <div>
@@ -64,31 +101,24 @@ export default function DoctorPrescriptionPage({ user, prescriptions }) {
               onChange={handlePrescriptionChange}
             />
           </div>
-          {/* {prescription &&
-          prescription.content &&
-          prescription.content.map((e, i) => {
-            return (
-              <input
-                key={i}
-                type="text"
-                name="e"
-                value={e}
-                placeholder="Contenu..."
-                value={e}
-                onChange={(event) => handleContentChange(event, i)}
-                required
-              />
-            )
-          })} */}
+          {prescription && prescription.reusable && (
+            <input
+              type="number"
+              name="max_use"
+              className={styles.search}
+              value={prescription.max_use}
+              min={1}
+              onChange={handlePrescriptionChange}
+              required
+            />
+          )}
+          <div>
+            {loading && <Spinner />}
+            {error && <p style={{ color: "red" }}> {error} </p>}
+            {success && <p style={{ color: "green" }}> {success} </p>}
+          </div>
+          <button className={styles.validate}>Valider l'ordonnance</button>
         </form>
-        <input
-          type="search"
-          name="search"
-          id=""
-          className={styles.search}
-          placeholder="Rechercher une ordonnance"
-          defaultValue=""
-        />
         <p style={{ width: "100%", color: "#979797CC" }}>Trier par</p>
         <section className={styles.orders}>
           <input

@@ -38,7 +38,22 @@ class DoctorApi {
 
   //! PASSWORD
 
-  //! CREATE ADMIN
+  //! CREATE PRESCRIPTION
+  async createPrescription(data) {
+    const parsedData = {
+      ...data,
+      content: [data.content],
+    }
+
+    return (
+      data &&
+      parsedData &&
+      (await axios.post(
+        `${API_URL}/${this.DOCTOR_URI}/prescription`,
+        parsedData
+      ))
+    )
+  }
 }
 
 export default new DoctorApi()
